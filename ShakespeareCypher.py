@@ -1,20 +1,28 @@
-import random, string, base64, string
+import random, string, base64, codecs, time, telegram
+from random import randint
+from secrets import telegram_token, path_to_text
+
 
 
 def open_text_file(filename):
+    bot = telegram.Bot(token=telegram_token)
     with open(filename, "r") as f:
         for index, line in enumerate(f):
             current_line = "Line {}: {}".format(index, line.strip()).encode()
             encode_line = codecs.encode(str(base64.b64encode(current_line)), "rot_13")
-            random_two = "".join(random.choices(string.ascii_lowercase, k=2))
-            encode_line = encode_line.replace("o'", random_two)
+            encode_line = encode_line.replace("'", "!")
             encode_line = encode_line.replace("==", ":)")
             fill_chars = "".join(
                 random.choices(
-                    string.ascii_letters + string.digits, k=140 - len(encode_line)
+                    string.ascii_letters + string.digits, k=132 - len(encode_line)
                 )
             )
-            print(encode_line + fill_chars)
+            msg = encode_line + fill_chars + "#AWTEW"
+            status = bot.send_message(
+                chat_id="@AphaereseK", text=msg, parse_mode=telegram.ParseMode.HTML
+            )
+            print(status)
+            time.sleep(randint(14400, 172800))
 
 
-open_text_file("S:\Dropbox\Tech\GitHub\ShakespeareCypher\AWTEW.txt")
+open_text_file(path_to_text)
