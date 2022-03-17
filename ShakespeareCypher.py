@@ -22,7 +22,7 @@ def open_text_file(filename):
                 chat_id="@AphaereseK", text=msg, parse_mode=telegram.ParseMode.HTML
             )
             print(status)
-            time.sleep(randint(14400, 172800))
+            time.sleep(randint(7200, 86400))
 
 
 open_text_file(path_to_text)
